@@ -45,6 +45,8 @@ export default function MassegingComponent({typing , setTyping}) {
     const { isWide, setIswide } = useSidebar();
 
 
+    const [inputBottom, setInputBottom] = useState(0);
+
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
     message: "",
@@ -133,6 +135,28 @@ useEffect(() => {
 }, []);
 
 
+
+    useEffect(() => {
+    const handleViewportChange = () => {
+      const vp = window.visualViewport;
+      if (vp) {
+        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      }
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleViewportChange);
+        window.visualViewport.removeEventListener("scroll", handleViewportChange);
+      }
+    };
+  }, []);
 
 
 const handelistyping = () => {
@@ -330,7 +354,7 @@ return (
 
 
 
-  <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },bottom:"0px",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+  <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },bottom:`${inputBottom}px`,padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
 
 
 
