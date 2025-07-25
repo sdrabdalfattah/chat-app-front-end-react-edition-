@@ -213,7 +213,7 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
             </>
           ) : (
             <>
-              <CircularProgress size="23px" />
+              <CircularProgress size="23px" sx={{ flexShrink: 0 }} />
               <Typography sx={{ ml: 1 }}>Starting server... this may take a few seconds</Typography>
             </>
           )}
