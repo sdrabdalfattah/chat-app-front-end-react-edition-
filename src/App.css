@@ -1,0 +1,14 @@
+#root {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+
+
+
+@keyframes blink {
+  0% { background-color: rgb(49, 49, 49); }
+  50% { background-color: rgba(49, 49, 49, 0.137); }
+  100% { background-color: rgb(49, 49, 49); }
+}
