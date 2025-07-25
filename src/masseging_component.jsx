@@ -330,7 +330,7 @@ return (
 
 
 
-  <Box sx={{bgcolor: "background.paper",position:"sticky",bottom:"0px",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+  <Box sx={{bgcolor: "background.paper",position:"fixed",left:"0",bottom:"0",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
 
 
 
