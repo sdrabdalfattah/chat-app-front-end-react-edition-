@@ -295,8 +295,6 @@ return (
   transition: "0.4s",
   scrollBehavior: "smooth",
   display: "flex",
-  maxHeight: "85vh",
-  overflowY: "auto",
   bgcolor: "background.default",
   flexDirection: "column",
   gap: "10px"
