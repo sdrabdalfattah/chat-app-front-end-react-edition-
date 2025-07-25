@@ -274,7 +274,7 @@ return (
 return (
     <>
 <Box sx={{width: isWide ? "100%" :"70%" ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
-      <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+      <Box sx={{bgcolor: "background.paper",position:"sticky",top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
 <Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<><PersonIcon sx={{marginRight:"7px"}} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
             <IconButton onClick={()=> {setOpen(true)}} aria-label="delete" sx={{marginLeft:"auto"}}>
@@ -330,7 +330,7 @@ return (
 
 
 
-  <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },bottom:"0px",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+  <Box sx={{bgcolor: "background.paper",position:"sticky",bottom:"0px",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
 
 
 
