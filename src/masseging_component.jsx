@@ -354,7 +354,35 @@ return (
 
 
 
-  <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },bottom:`${inputBottom}px`,padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+<Box
+  sx={{
+    bgcolor: "background.paper",
+    position: {
+      xl: "sticky",
+      md: "sticky",
+      sm: "fixed",
+      xs: "fixed",
+    },
+    bottom: `${inputBottom}px`,
+
+    // ✅ إزالة أي سلاسة وتأخير
+    transition: "none",
+    scrollBehavior: "auto",
+
+    padding: {
+      xl: "10px 30px",
+      md: "10px 30px",
+      sm: "10px 5px",
+      xs: "10px 5px",
+    },
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "auto",
+  }}
+>
+
 
 
 
