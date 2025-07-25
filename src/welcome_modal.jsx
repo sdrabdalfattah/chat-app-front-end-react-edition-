@@ -171,7 +171,7 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
         <Typography variant="body2" sx={{ color: 'gray' }}>
           * Source Code:&nbsp;
           <Link
-            href="https://github.com/sdrabdalfattah/tasks-front-end-react-edition-"
+            href="https://github.com/sdrabdalfattah/chat-app-front-end-react-edition-"
             target="_blank"
             rel="noopener noreferrer"
             underline="hover"
