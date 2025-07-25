@@ -163,8 +163,8 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
             marginRight: "10px",
             fontSize: "20px",
           }}
-        />
-        Please do not enter real passwords or any sensitive information. This platform is for testing purposes only.
+        />    
+For technical reasons, all user accounts will be deleted 30 days after their creation, and all conversations will be deleted 7 days after they are created.
       </Typography>
 
 
