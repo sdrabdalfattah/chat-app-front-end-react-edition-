@@ -133,19 +133,7 @@ useEffect(() => {
 }, []);
 
 
-useEffect(() => {
-  if (window.visualViewport) {
-    const handleResize = () => {
-      const inputBar = document.getElementById('input-bar'); 
-      if (inputBar) {
-        inputBar.style.bottom = `${window.innerHeight - window.visualViewport.height}px`;
-      }
-    };
 
-    window.visualViewport.addEventListener('resize', handleResize);
-    return () => window.visualViewport.removeEventListener('resize', handleResize);
-  }
-}, []);
 
 
 
@@ -343,7 +331,7 @@ return (
 
 
 
-  <Box id="input-bar" sx={{bgcolor: "background.paper",position:"fixed",left:"0",bottom:"0",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+  <Box sx={{bgcolor: "background.paper",position:"fixed",left:"0",bottom:"0",padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
 
 
 
