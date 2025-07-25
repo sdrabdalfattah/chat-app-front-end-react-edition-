@@ -23,7 +23,7 @@ const darkTheme = createTheme({
           margin: 0,
           width: '100%',
           padding:0,
-          minHeight: '100dvh',
+          minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
