@@ -136,27 +136,28 @@ useEffect(() => {
 
 
 
- useEffect(() => {
-    const handleViewportChange = () => {
-      const vp = window.visualViewport;
-      if (vp) {
-        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-      }
-    };
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", handleViewportChange);
-      window.visualViewport.addEventListener("scroll", handleViewportChange);
+useEffect(() => {
+  const handleResize = () => {
+    const vp = window.visualViewport;
+    if (vp) {
+      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
     }
+  };
 
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", handleViewportChange);
-        window.visualViewport.removeEventListener("scroll", handleViewportChange);
-      }
-    };
-  }, []);
+  const vp = window.visualViewport;
+  if (vp) {
+    vp.addEventListener("resize", handleResize);
+    handleResize(); // مرة أولى
+  }
+
+  return () => {
+    if (vp) {
+      vp.removeEventListener("resize", handleResize);
+    }
+  };
+}, []);
+
 
 
 const handelistyping = () => {
@@ -364,7 +365,7 @@ return (
       xs: "fixed",
     },
     bottom: `${inputBottom}px`,
-    transition: "none",
+    transition: "bottom 0s",
     scrollBehavior: "auto",
 
     padding: {
