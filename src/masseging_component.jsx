@@ -46,6 +46,7 @@ export default function MassegingComponent({typing , setTyping}) {
 
 
     const [inputBottom, setInputBottom] = useState(0);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
@@ -75,6 +76,9 @@ useEffect(() => {
 
 
 
+const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+setIsKeyboardOpen(keyboardHeight > 0);
 
 
   const messagesEndRef = useRef(null);
@@ -361,8 +365,8 @@ return (
     position: {
       xl: "sticky",
       md: "sticky",
-      sm: "fixed",
-      xs: "fixed",
+      sm: isKeyboardOpen ? "fixed" : "relative",
+      xs: isKeyboardOpen ? "fixed" : "relative",
     },
     bottom: `${inputBottom}px`,
     transition: "bottom 0s",
