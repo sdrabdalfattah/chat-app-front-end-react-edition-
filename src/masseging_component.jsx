@@ -301,8 +301,8 @@ return (
   padding: {
     xl: isWide ? "10px 200px" : "10px 30px",
     md: isWide ? "10px 200px" : "10px 30px",
-    sm: "30px",
-    xs: "30px", 
+    sm: "90px 30px",
+    xs: "90px 30px", 
   },
   transition: "0.4s",
   scrollBehavior: "smooth",
@@ -337,7 +337,8 @@ return (
 
 
       <Box 
-      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ?  selectedUser.name + "is typing ..." : ""}</Box>
+      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ?  selectedUser.name + "is typing ..." : ""}
+      </Box>
     </Box>
 
 
