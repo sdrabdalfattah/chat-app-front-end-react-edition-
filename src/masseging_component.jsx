@@ -46,7 +46,6 @@ export default function MassegingComponent({typing , setTyping}) {
 
 
     const [inputBottom, setInputBottom] = useState(0);
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
@@ -80,16 +79,28 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-useEffect(() => {
-  const container = messagesEndRef.current;
-  if (!container) return;
-  const threshold = 2000; 
-  const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+ useEffect(() => {
+    const handleViewportChange = () => {
+      const vp = window.visualViewport;
+      if (vp) {
+        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      }
+    };
 
-  if (isNearBottom) {
-    container.scrollTop = container.scrollHeight;
-  }
-}, [messages,typing]);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleViewportChange);
+        window.visualViewport.removeEventListener("scroll", handleViewportChange);
+      }
+    };
+  }, []);
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -136,34 +147,8 @@ useEffect(() => {
 
 
 
-useEffect(() => {
-  const handleResize = () => {
-    const vp = window.visualViewport;
-    if (vp) {
-      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-    }
-  };
-
-  const vp = window.visualViewport;
-  if (vp) {
-    vp.addEventListener("resize", handleResize);
-    handleResize(); // مرة أولى
-  }
-
-  return () => {
-    if (vp) {
-      vp.removeEventListener("resize", handleResize);
-    }
-  };
-}, []);
-
 
   
-const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-setIsKeyboardOpen(keyboardHeight > 0);
-
 const handelistyping = () => {
   const sender_id = userinfo.id;
   const receiver_id  = messageJSON.reciverid;
