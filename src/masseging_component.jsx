@@ -362,8 +362,8 @@ return (
     padding: {
       xl: "10px 30px",
       md: "10px 30px",
-      sm: "10px 5px",
-      xs: "10px 5px",
+      sm: "90px 30px",
+      xs: "90px 30px", 
     },
     width: "100%",
     display: "flex",
