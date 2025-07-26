@@ -79,12 +79,7 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-function ChatInput({ messageJSON, setmessageJSON, handelistyping }) {
-  const [inputBottom, setInputBottom] = useState(0);
-  const inputRef = useRef();
-
-  // 🎯 التحكم في مكان الشريط حسب لوحة المفاتيح
-  useEffect(() => {
+ useEffect(() => {
     const handleViewportChange = () => {
       const vp = window.visualViewport;
       if (vp) {
@@ -105,28 +100,7 @@ function ChatInput({ messageJSON, setmessageJSON, handelistyping }) {
       }
     };
   }, []);
-
-  useEffect(() => {
-    const inputEl = inputRef.current;
-    if (!inputEl) return;
-
-    const onFocus = () => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-      document.body.style.overflow = "hidden";
-    };
-
-    const onBlur = () => {
-      document.body.style.overflow = "";
-    };
-
-    inputEl.addEventListener("focus", onFocus);
-    inputEl.addEventListener("blur", onBlur);
-
-    return () => {
-      inputEl.removeEventListener("focus", onFocus);
-      inputEl.removeEventListener("blur", onBlur);
-    };
-  }, []);
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -328,8 +302,8 @@ return (
   padding: {
     xl: isWide ? "10px 200px" : "10px 30px",
     md: isWide ? "10px 200px" : "10px 30px",
-    sm: "90px 30px",
-    xs: "90px 30px", 
+    sm: "30px",
+    xs: "30px", 
   },
   paddingBlock:"50px",
   transition: "0.4s",
@@ -405,7 +379,6 @@ return (
               readonly
               onFocus="this.removeAttribute('readonly');"
               autoComplete="off"
-              inputRef={inputRef}
               onInput={handelistyping}
               value={messageJSON.message}
               onChange={(e) =>setmessageJSON((prev) => ({ ...prev, message: e.target.value }))}
