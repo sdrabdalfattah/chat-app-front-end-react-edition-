@@ -79,27 +79,36 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
- useEffect(() => {
-    const handleViewportChange = () => {
-      const vp = window.visualViewport;
-      if (vp) {
-        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-      }
+  const inputBarRef = useRef();
+  useEffect(() => {
+    if (!window.visualViewport || !inputBarRef.current) return;
+
+    let pendingUpdate = false;
+
+    const viewportHandler = () => {
+      if (pendingUpdate) return;
+      pendingUpdate = true;
+
+      requestAnimationFrame(() => {
+        pendingUpdate = false;
+
+        const offsetTop = window.visualViewport.offsetTop;
+        const heightDiff = window.innerHeight - window.visualViewport.height - offsetTop;
+
+        // طبّق التحريك فقط عند وجود فرق
+        inputBarRef.current.style.transform = `translateY(-${Math.max(0, heightDiff)}px)`;
+      });
     };
 
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", handleViewportChange);
-      window.visualViewport.addEventListener("scroll", handleViewportChange);
-    }
+    window.visualViewport.addEventListener("scroll", viewportHandler);
+    window.visualViewport.addEventListener("resize", viewportHandler);
 
     return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", handleViewportChange);
-        window.visualViewport.removeEventListener("scroll", handleViewportChange);
-      }
+      window.visualViewport.removeEventListener("scroll", viewportHandler);
+      window.visualViewport.removeEventListener("resize", viewportHandler);
     };
   }, []);
+
   
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -347,6 +356,7 @@ return (
 
 
 <Box
+  ref={inputBarRef}
   sx={{
     bgcolor: "background.paper",
     position: {
@@ -355,7 +365,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: `${inputBottom}px`,
+    bottom: `0`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
