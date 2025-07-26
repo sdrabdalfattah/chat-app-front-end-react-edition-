@@ -302,8 +302,8 @@ return (
   padding: {
     xl: isWide ? "10px 200px" : "10px 30px",
     md: isWide ? "10px 200px" : "10px 30px",
-    sm: "30px 90px",
-    xs: "30px 90px", 
+    sm: "90px 30px",
+    xs: "90px 30px", 
   },
   paddingBlock:"50px",
   transition: "0.4s",
