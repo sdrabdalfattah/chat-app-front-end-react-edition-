@@ -77,28 +77,7 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-  const [bottomOffset, setBottomOffset] = useState(0);
-    useEffect(() => {
-    const handleViewportChange = () => {
-      if (window.visualViewport) {
-        const offset = window.innerHeight - window.visualViewport.height;
-        setBottomOffset(offset > 0 ? offset : 0);
-      }
-    };
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", handleViewportChange);
-      window.visualViewport.addEventListener("scroll", handleViewportChange);
-      handleViewportChange(); // Initial run
-    }
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", handleViewportChange);
-        window.visualViewport.removeEventListener("scroll", handleViewportChange);
-      }
-    };
-  }, []);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
   
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -353,8 +332,8 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: `${bottomOffset}px`,
-    transition: "bottom 0s",
+    transform: keyboardOpen ? "translateY(-150px)" : "translateY(0)",
+    transition: "transform 0.3s ease",
     scrollBehavior: "auto",
 
     padding: {
@@ -375,8 +354,9 @@ return (
 
 
        <TextField
+              onFocus={() => setKeyboardOpen(true)}
+              onBlur={() => setKeyboardOpen(false)}
               readonly
-              onFocus="this.removeAttribute('readonly');"
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
