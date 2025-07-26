@@ -132,7 +132,7 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
             fontSize: "20px",
           }}
         />
-        For technical reasons, all user accounts will be deleted after 30 days and all conversations will be deleted after 7 days.
+    For technical reasons, all user accounts will be deleted 30 days after their creation, and all conversations will be deleted 7 days after they are created.
       </Typography>
 
 
@@ -164,8 +164,7 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
             fontSize: "20px",
           }}
         />    
-For technical reasons, all user accounts will be deleted 30 days after their creation, and all conversations will be deleted 7 days after they are created.
-      </Typography>
+ Please do not enter real passwords or any sensitive information. This platform is for testing purposes only.
 
 
         <Typography variant="body2" sx={{ color: 'gray' }}>
