@@ -76,10 +76,6 @@ useEffect(() => {
 
 
 
-const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-setIsKeyboardOpen(keyboardHeight > 0);
-
 
   const messagesEndRef = useRef(null);
 
@@ -163,6 +159,10 @@ useEffect(() => {
 }, []);
 
 
+  
+const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+setIsKeyboardOpen(keyboardHeight > 0);
 
 const handelistyping = () => {
   const sender_id = userinfo.id;
