@@ -136,28 +136,27 @@ useEffect(() => {
 
 
 
-    useEffect(() => {
-    const handleViewportChange = () => {
-      const vp = window.visualViewport;
-      if (vp) {
-        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-      }
-    };
+useEffect(() => {
+  const vp = window.visualViewport;
+  let lastHeight = vp?.height;
 
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", handleViewportChange);
-      window.visualViewport.addEventListener("scroll", handleViewportChange);
+  const handleViewportResize = () => {
+    if (!vp) return;
+
+    const newHeight = vp.height;
+    if (Math.abs(newHeight - lastHeight) > 10) {
+      // فرق حقيقي، غالبًا بسبب لوحة المفاتيح
+      const keyboardHeight = window.innerHeight - newHeight - vp.offsetTop;
+      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      lastHeight = newHeight;
     }
+  };
 
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", handleViewportChange);
-        window.visualViewport.removeEventListener("scroll", handleViewportChange);
-      }
-    };
-  }, []);
-
+  vp?.addEventListener("resize", handleViewportResize);
+  return () => {
+    vp?.removeEventListener("resize", handleViewportResize);
+  };
+}, []);
 
 const handelistyping = () => {
   const sender_id = userinfo.id;
@@ -364,8 +363,6 @@ return (
       xs: "fixed",
     },
     bottom: `${inputBottom}px`,
-
-    // ✅ إزالة أي سلاسة وتأخير
     transition: "none",
     scrollBehavior: "auto",
 
@@ -387,6 +384,8 @@ return (
 
 
        <TextField
+              readonly
+              onFocus="this.removeAttribute('readonly');"
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
@@ -396,7 +395,7 @@ return (
               sx={{width:"100%",background:"trasparent"}}
              InputProps={{
           sx: {
-
+            
             zIndex:"1" ,
               fontSize: {  xl: "18px",md: "18px",sm: "16px",xs: "16px", },
               padding:{  xl: "5px 10px",md: "5px 10px",sm: "5px 2px",xs: "5px 5px", },
