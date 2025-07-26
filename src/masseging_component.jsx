@@ -332,6 +332,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
+    bottom: `0`,
     transform: keyboardOpen ? "translateY(-150px)" : "translateY(0)",
     transition: "transform 0.3s ease",
     scrollBehavior: "auto",
