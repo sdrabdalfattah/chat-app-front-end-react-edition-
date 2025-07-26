@@ -83,40 +83,30 @@ useEffect(() => {
     const topBarRef = useRef();
   
 useEffect(() => {
-    if (!window.visualViewport) return;
+  if (!window.visualViewport) return;
 
-    let pendingUpdate = false;
+  const viewportHandler = () => {
+    const offsetTop = window.visualViewport.offsetTop;
+    const heightDiff = window.innerHeight - window.visualViewport.height - offsetTop;
 
-    const viewportHandler = () => {
-      if (pendingUpdate) return;
-      pendingUpdate = true;
+    if (bottomBarRef.current) {
+      bottomBarRef.current.style.transform = `translateY(-${Math.max(0, heightDiff)}px)`;
+    }
 
-      requestAnimationFrame(() => {
-        pendingUpdate = false;
+    if (topBarRef.current) {
+      topBarRef.current.style.transform = `translateY(${Math.max(0, offsetTop)}px)`;
+    }
+  };
 
-        const offsetTop = window.visualViewport.offsetTop;
-        const heightDiff = window.innerHeight - window.visualViewport.height - offsetTop;
+  window.visualViewport.addEventListener("scroll", viewportHandler);
+  window.visualViewport.addEventListener("resize", viewportHandler);
 
-        // 🔻 حرّك العنصر السفلي
-        if (bottomBarRef.current) {
-          bottomBarRef.current.style.transform = `translateY(-${Math.max(0, heightDiff)}px)`;
-        }
+  return () => {
+    window.visualViewport.removeEventListener("scroll", viewportHandler);
+    window.visualViewport.removeEventListener("resize", viewportHandler);
+  };
+}, []);
 
-        // 🔺 حرّك العنصر العلوي
-        if (topBarRef.current) {
-          topBarRef.current.style.transform = `translateY(${Math.max(0, offsetTop)}px)`;
-        }
-      });
-    };
-
-    window.visualViewport.addEventListener("scroll", viewportHandler);
-    window.visualViewport.addEventListener("resize", viewportHandler);
-
-    return () => {
-      window.visualViewport.removeEventListener("scroll", viewportHandler);
-      window.visualViewport.removeEventListener("resize", viewportHandler);
-    };
-  }, []);
 
   
   useEffect(() => {
