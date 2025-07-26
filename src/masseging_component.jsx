@@ -79,9 +79,11 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-  const inputBarRef = useRef();
-  useEffect(() => {
-    if (!window.visualViewport || !inputBarRef.current) return;
+ const bottomBarRef = useRef();
+    const topBarRef = useRef();
+  
+useEffect(() => {
+    if (!window.visualViewport) return;
 
     let pendingUpdate = false;
 
@@ -95,8 +97,15 @@ useEffect(() => {
         const offsetTop = window.visualViewport.offsetTop;
         const heightDiff = window.innerHeight - window.visualViewport.height - offsetTop;
 
-        // طبّق التحريك فقط عند وجود فرق
-        inputBarRef.current.style.transform = `translateY(-${Math.max(0, heightDiff)}px)`;
+        // 🔻 حرّك العنصر السفلي
+        if (bottomBarRef.current) {
+          bottomBarRef.current.style.transform = `translateY(-${Math.max(0, heightDiff)}px)`;
+        }
+
+        // 🔺 حرّك العنصر العلوي
+        if (topBarRef.current) {
+          topBarRef.current.style.transform = `translateY(${Math.max(0, offsetTop)}px)`;
+        }
       });
     };
 
@@ -297,7 +306,7 @@ return (
 return (
     <>
 <Box sx={{width: {md:isWide ? "100%" :"70%",xl:isWide ? "100%" :"70%", sm: "100%",xs: "100%",  } ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
-      <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+      <Box ref={topBarRef} sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
 <Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<><PersonIcon sx={{marginRight:"7px"}} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
             <IconButton onClick={()=> {setOpen(true)}} aria-label="delete" sx={{marginLeft:"auto"}}>
@@ -356,7 +365,7 @@ return (
 
 
 <Box
-  ref={inputBarRef}
+  ref={bottomBarRef}
   sx={{
     bgcolor: "background.paper",
     position: {
