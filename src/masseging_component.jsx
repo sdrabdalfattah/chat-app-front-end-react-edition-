@@ -136,27 +136,28 @@ useEffect(() => {
 
 
 
-useEffect(() => {
-  const vp = window.visualViewport;
-  let lastHeight = vp?.height;
+ useEffect(() => {
+    const handleViewportChange = () => {
+      const vp = window.visualViewport;
+      if (vp) {
+        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      }
+    };
 
-  const handleViewportResize = () => {
-    if (!vp) return;
-
-    const newHeight = vp.height;
-    if (Math.abs(newHeight - lastHeight) > 10) {
-      // فرق حقيقي، غالبًا بسبب لوحة المفاتيح
-      const keyboardHeight = window.innerHeight - newHeight - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-      lastHeight = newHeight;
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
     }
-  };
 
-  vp?.addEventListener("resize", handleViewportResize);
-  return () => {
-    vp?.removeEventListener("resize", handleViewportResize);
-  };
-}, []);
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleViewportChange);
+        window.visualViewport.removeEventListener("scroll", handleViewportChange);
+      }
+    };
+  }, []);
+
 
 const handelistyping = () => {
   const sender_id = userinfo.id;
