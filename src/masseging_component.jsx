@@ -345,13 +345,26 @@ return (
 
 
 
-<div
-  style={{
-    background: "green",
-    position: "fixed",
+
+<Box
+  sx={{
+    bgcolor: "background.paper",
+    position: {
+      xl: "sticky",
+      md: "sticky",
+      sm: "fixed",
+      xs: "fixed",
+    },
     bottom: `${inputBottom}px`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
+
+    padding: {
+      xl: "10px 30px",
+      md: "10px 30px",
+      sm: "10px 5px",
+      xs: "10px 5px",
+    },
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
