@@ -45,8 +45,6 @@ export default function MassegingComponent({typing , setTyping}) {
     const { isWide, setIswide } = useSidebar();
 
 
-    const [inputBottom, setInputBottom] = useState(0);
-
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
     message: "",
@@ -79,18 +77,19 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
- useEffect(() => {
+  const [bottomOffset, setBottomOffset] = useState(0);
+    useEffect(() => {
     const handleViewportChange = () => {
-      const vp = window.visualViewport;
-      if (vp) {
-        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      if (window.visualViewport) {
+        const offset = window.innerHeight - window.visualViewport.height;
+        setBottomOffset(offset > 0 ? offset : 0);
       }
     };
 
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", handleViewportChange);
       window.visualViewport.addEventListener("scroll", handleViewportChange);
+      handleViewportChange(); // Initial run
     }
 
     return () => {
