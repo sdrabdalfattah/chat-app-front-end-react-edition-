@@ -350,8 +350,8 @@ return (
     position: {
       xl: "sticky",
       md: "sticky",
-      sm: isKeyboardOpen ? "fixed" : "relative",
-      xs: isKeyboardOpen ? "fixed" : "relative",
+      sm: "fixed",
+      xs: "fixed",
     },
     bottom: `${inputBottom}px`,
     transition: "bottom 0s",
