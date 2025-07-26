@@ -468,7 +468,7 @@ return (
         <SendIcon />
       </Fab>
 
-        </div>
+        </Box>
        
 </Box>
 
