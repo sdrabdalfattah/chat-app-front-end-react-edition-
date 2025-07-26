@@ -165,7 +165,7 @@ export default function WelcomeModal({ open, onClose, serverawake }) {
           }}
         />    
  Please do not enter real passwords or any sensitive information. This platform is for testing purposes only.
-
+      </Typography>
 
         <Typography variant="body2" sx={{ color: 'gray' }}>
           * Source Code:&nbsp;
