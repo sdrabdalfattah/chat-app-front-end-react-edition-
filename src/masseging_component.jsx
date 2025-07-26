@@ -79,7 +79,12 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
- useEffect(() => {
+function ChatInput({ messageJSON, setmessageJSON, handelistyping }) {
+  const [inputBottom, setInputBottom] = useState(0);
+  const inputRef = useRef();
+
+  // 🎯 التحكم في مكان الشريط حسب لوحة المفاتيح
+  useEffect(() => {
     const handleViewportChange = () => {
       const vp = window.visualViewport;
       if (vp) {
@@ -100,7 +105,28 @@ useEffect(() => {
       }
     };
   }, []);
-  
+
+  useEffect(() => {
+    const inputEl = inputRef.current;
+    if (!inputEl) return;
+
+    const onFocus = () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      document.body.style.overflow = "hidden";
+    };
+
+    const onBlur = () => {
+      document.body.style.overflow = "";
+    };
+
+    inputEl.addEventListener("focus", onFocus);
+    inputEl.addEventListener("blur", onBlur);
+
+    return () => {
+      inputEl.removeEventListener("focus", onFocus);
+      inputEl.removeEventListener("blur", onBlur);
+    };
+  }, []);
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -379,6 +405,7 @@ return (
               readonly
               onFocus="this.removeAttribute('readonly');"
               autoComplete="off"
+              inputRef={inputRef}
               onInput={handelistyping}
               value={messageJSON.message}
               onChange={(e) =>setmessageJSON((prev) => ({ ...prev, message: e.target.value }))}
