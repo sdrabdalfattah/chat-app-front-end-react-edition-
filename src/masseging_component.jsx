@@ -352,7 +352,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: `${inputBottom}px`,
+    bottom: `${bottomOffset}px`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
