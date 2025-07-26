@@ -1,4 +1,5 @@
 
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -45,6 +46,8 @@ export default function MassegingComponent({typing , setTyping}) {
     const { isWide, setIswide } = useSidebar();
 
 
+    const [inputBottom, setInputBottom] = useState(0);
+
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
     message: "",
@@ -77,7 +80,27 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false);
+ useEffect(() => {
+    const handleViewportChange = () => {
+      const vp = window.visualViewport;
+      if (vp) {
+        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      }
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleViewportChange);
+        window.visualViewport.removeEventListener("scroll", handleViewportChange);
+      }
+    };
+  }, []);
   
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -265,7 +288,7 @@ return (
 
 return (
     <>
-<Box sx={{width: isWide ? "100%" :"70%" ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
+<Box sx={{width: {md:isWide ? "100%" :"70%",xl:isWide ? "100%" :"70%", sm: "100%",xs: "100%",  } ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
       <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
 <Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<><PersonIcon sx={{marginRight:"7px"}} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
@@ -316,8 +339,7 @@ return (
 
 
       <Box 
-      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ?  selectedUser.name + "is typing ..." : ""}
-      </Box>
+      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ?  selectedUser.name + "is typing ..." : ""}</Box>
     </Box>
 
 
@@ -332,9 +354,8 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: `0`,
-    transform: keyboardOpen ? "translateY(-150px)" : "translateY(0)",
-    transition: "transform 0.3s ease",
+    bottom: `${inputBottom}px`,
+    transition: "bottom 0s",
     scrollBehavior: "auto",
 
     padding: {
@@ -355,9 +376,8 @@ return (
 
 
        <TextField
-              onFocus={() => setKeyboardOpen(true)}
-              onBlur={() => setKeyboardOpen(false)}
               readonly
+              onFocus="this.removeAttribute('readonly');"
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
