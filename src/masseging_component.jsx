@@ -1,5 +1,4 @@
 
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -346,25 +345,13 @@ return (
 
 
 
-<Box
-  sx={{
-    bgcolor: "background.paper",
-    position: {
-      xl: "sticky",
-      md: "sticky",
-      sm: "fixed",
-      xs: "fixed",
-    },
+<div
+  style={{
+    background: "green",
+    position: "fixed",
     bottom: `${inputBottom}px`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
-
-    padding: {
-      xl: "10px 30px",
-      md: "10px 30px",
-      sm: "90px 30px",
-      xs: "90px 30px", 
-    },
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
@@ -468,7 +455,7 @@ return (
         <SendIcon />
       </Fab>
 
-        </Box>
+        </div>
        
 </Box>
 
