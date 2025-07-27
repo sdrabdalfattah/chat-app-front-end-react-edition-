@@ -322,7 +322,7 @@ return (
   scrollBehavior: "smooth",
   display: "flex",
   maxHeight: {  xl: "85vh",md: "85vh",sm: "none",xs: "none", },
-  overflowY: {  xl: "auto",md: "auto",sm:  stopscroll ? "hidden" : "auto",xs: stopscroll ? "hidden" : "auto", },
+  overflowY: stopscroll ? "hidden" : "auto",
   bgcolor: "background.default",
   flexDirection: "column",
   gap: "10px"
