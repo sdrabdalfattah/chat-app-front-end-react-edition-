@@ -45,6 +45,8 @@ export default function MassegingComponent({typing , setTyping}) {
     const { isWide, setIswide } = useSidebar();
 
 
+    const [inputBottom, setInputBottom] = useState(0);
+
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
     message: "",
@@ -70,40 +72,6 @@ useEffect(() => {
     setOpen(false);
   };
 
-const [inputBottom, setInputBottom] = useState(0);
-const [isFocused, setIsFocused] = useState(false);
-
-useEffect(() => {
-  const handleViewportChange = () => {
-    const vp = window.visualViewport;
-    if (vp) {
-      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-    }
-  };
-
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", handleViewportChange);
-    window.visualViewport.addEventListener("scroll", handleViewportChange);
-  }
-
-  // scroll to bottom on focus
-  if (isFocused) {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "auto" });
-    document.body.style.overflow = "hidden"; // يمنع التمرير
-  } else {
-    document.body.style.overflow = ""; // يرجع التمرير الطبيعي
-  }
-
-  return () => {
-    if (window.visualViewport) {
-      window.visualViewport.removeEventListener("resize", handleViewportChange);
-      window.visualViewport.removeEventListener("scroll", handleViewportChange);
-    }
-    document.body.style.overflow = ""; // أمان عند الخروج
-  };
-}, [isFocused]);
-
 
 
 
@@ -111,16 +79,28 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-useEffect(() => {
-  const container = messagesEndRef.current;
-  if (!container) return;
-  const threshold = 2000; 
-  const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+ useEffect(() => {
+    const handleViewportChange = () => {
+      const vp = window.visualViewport;
+      if (vp) {
+        const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
+        setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
+      }
+    };
 
-  if (isNearBottom) {
-    container.scrollTop = container.scrollHeight;
-  }
-}, [messages,typing]);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleViewportChange);
+        window.visualViewport.removeEventListener("scroll", handleViewportChange);
+      }
+    };
+  }, []);
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -168,6 +148,7 @@ useEffect(() => {
 
 
 
+  
 const handelistyping = () => {
   const sender_id = userinfo.id;
   const receiver_id  = messageJSON.reciverid;
@@ -306,7 +287,7 @@ return (
 
 return (
     <>
-<Box sx={{width: isWide ? "100%" :"70%" ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
+<Box sx={{width: {md:isWide ? "100%" :"70%",xl:isWide ? "100%" :"70%", sm: "100%",xs: "100%",  } ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
       <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
 <Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<><PersonIcon sx={{marginRight:"7px"}} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
@@ -324,6 +305,7 @@ return (
     sm: "30px",
     xs: "30px", 
   },
+  paddingBlock:"50px",
   transition: "0.4s",
   scrollBehavior: "smooth",
   display: "flex",
@@ -363,47 +345,57 @@ return (
 
 
 
-  <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },bottom: `${inputBottom}px`,padding:{  xl: "10px 30px",md: "10px 30px",sm: "10px 5px",xs: "10px 5px", },width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"auto"}}>
+<Box
+  sx={{
+    bgcolor: "background.paper",
+    position: {
+      xl: "sticky",
+      md: "sticky",
+      sm: "fixed",
+      xs: "fixed",
+    },
+    bottom: `${inputBottom}px`,
+    transition: "bottom 0s",
+    scrollBehavior: "auto",
+
+    padding: {
+      xl: "10px 30px",
+      md: "10px 30px",
+      sm: "10px 5px",
+      xs: "10px 5px",
+    },
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "auto",
+  }}
+>
 
 
 
- <TextField
-    readOnly
-    onFocus={(e) => {
-      e.target.removeAttribute("readonly");
-      setIsFocused(true);
-    }}
-    onBlur={() => setIsFocused(false)}
-    autoComplete="off"
-    onInput={handelistyping}
-    value={messageJSON.message}
-    onChange={(e) =>
-      setmessageJSON((prev) => ({ ...prev, message: e.target.value }))
-    }
-    placeholder="Type your message here..."
-    size="small"
-    sx={{ width: "100%", background: "transparent" }}
-    InputProps={{
-      sx: {
-        zIndex: "1",
-        fontSize: {
-          xl: "18px",
-          md: "18px",
-          sm: "16px",
-          xs: "16px",
-        },
-        padding: {
-          xl: "5px 10px",
-          md: "5px 10px",
-          sm: "5px 2px",
-          xs: "5px 5px",
-        },
-        borderRadius: "50px",
-      },
-    }}
-    hiddenLabel
-  />
 
+       <TextField
+              readonly
+              onFocus="this.removeAttribute('readonly');"
+              autoComplete="off"
+              onInput={handelistyping}
+              value={messageJSON.message}
+              onChange={(e) =>setmessageJSON((prev) => ({ ...prev, message: e.target.value }))}
+              placeholder="Type your message here..."
+              size="small"
+              sx={{width:"100%",background:"trasparent"}}
+             InputProps={{
+          sx: {
+            
+            zIndex:"1" ,
+              fontSize: {  xl: "18px",md: "18px",sm: "16px",xs: "16px", },
+              padding:{  xl: "5px 10px",md: "5px 10px",sm: "5px 2px",xs: "5px 5px", },
+            borderRadius: "50px",
+          },
+        }}
+              hiddenLabel
+            />
       
 
 <Tooltip
