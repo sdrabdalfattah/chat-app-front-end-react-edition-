@@ -54,6 +54,8 @@ export default function MassegingComponent({typing , setTyping}) {
   });
 
 
+
+  const [stopscroll , setstopscroll] = useState(false)
 const [isLoading , setIsLoading] = useState(false)
 
 useEffect(() => {
@@ -198,7 +200,16 @@ const handleImageUpload = async (e) => {
 
 
 
+const handelscrolldown = ()=> {
+  if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+setstopscroll(true)
+}
 
+const handelblur = ()=>{
+setstopscroll(false)
+}
 
 const renderedMessages = useMemo(() => {
   return messages.map((msg, index) => {
@@ -305,12 +316,13 @@ return (
     sm: "30px",
     xs: "30px", 
   },
+
   paddingBlock:"50px",
   transition: "0.4s",
   scrollBehavior: "smooth",
   display: "flex",
   maxHeight: {  xl: "85vh",md: "85vh",sm: "none",xs: "none", },
-  overflowY: {  xl: "auto",md: "auto",sm: "visible",xs: "visible", },
+  overflowY: {  xl: "auto",md: "auto",sm:  stopscroll ? "hidden" : "auto",xs: stopscroll ? "hidden" : "auto", },
   bgcolor: "background.default",
   flexDirection: "column",
   gap: "10px"
@@ -376,8 +388,8 @@ return (
 
 
        <TextField
-              readonly
-              onFocus="this.removeAttribute('readonly');"
+              onBlur={handelblur}
+              onFocus={handelscrolldown}
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
