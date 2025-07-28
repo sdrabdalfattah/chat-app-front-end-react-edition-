@@ -334,6 +334,7 @@ return (
         role="presentation"
         aria-hidden="true"
   sx={{
+        height:"400px",
     bgcolor: "background.paper",
     position: {
       xl: "sticky",
