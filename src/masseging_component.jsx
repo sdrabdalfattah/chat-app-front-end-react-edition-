@@ -331,6 +331,8 @@ return (
 
 
 <Box
+        role="presentation"
+        aria-hidden="true"
   sx={{
     bgcolor: "background.paper",
     position: {
@@ -339,9 +341,9 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
+    bottom: 0,
     left: 0,
     right: 0,
-    bottom: "0px",
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
@@ -363,8 +365,6 @@ return (
 
 
        <TextField
-              role="presentation"
-              aria-hidden="true"
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
