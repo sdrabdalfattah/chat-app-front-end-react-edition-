@@ -41,6 +41,12 @@ useEffect(() => {
 }, []);
 
 
+useEffect(() => {
+  if ("virtualKeyboard" in navigator) {
+    navigator.virtualKeyboard.overlaysContent = true;
+  }
+}, []);
+
   return (
     <>
      <BrowserRouter>
@@ -66,4 +72,3 @@ useEffect(() => {
 }
 
 export default App
-
