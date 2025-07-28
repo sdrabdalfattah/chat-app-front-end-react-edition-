@@ -341,7 +341,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    transition: "bottom 0s",
+     bottom: 'max(0rem, env(keyboard-inset-height, 0rem))',
     scrollBehavior: "auto",
 
     padding: {
@@ -358,7 +358,6 @@ return (
     marginTop: "auto",
   }}
 >
-
 
 
 
