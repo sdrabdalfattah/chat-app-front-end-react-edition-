@@ -44,7 +44,7 @@ export default function MassegingComponent({typing , setTyping}) {
 
     const { isWide, setIswide } = useSidebar();
 
-      const [inputBottom, setInputBottom] = useState(0);
+
 
 
   const [messageJSON, setmessageJSON] = useState({
@@ -81,27 +81,6 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-useEffect(() => {
-  const handleViewportChange = () => {
-    const vp = window.visualViewport;
-    if (vp) {
-      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-    }
-  };
-
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", handleViewportChange);
-    window.visualViewport.addEventListener("scroll", handleViewportChange);
-  }
-
-  return () => {
-    if (window.visualViewport) {
-      window.visualViewport.removeEventListener("resize", handleViewportChange);
-      window.visualViewport.removeEventListener("scroll", handleViewportChange);
-    }
-  };
-}, []);
 
 
 
@@ -362,7 +341,7 @@ return (
     },
     left: 0,
     right: 0,
-    bottom: inputBottom,
+    bottom: "0px",
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
@@ -384,6 +363,8 @@ return (
 
 
        <TextField
+              role="presentation"
+              aria-hidden="true"
               autoComplete="off"
               onInput={handelistyping}
               value={messageJSON.message}
