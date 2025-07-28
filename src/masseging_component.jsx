@@ -81,25 +81,7 @@ useEffect(() => {
   const messagesEndRef = useRef(null);
 
 
-useEffect(() => {
-  const handleViewportResize = () => {
-    const vp = window.visualViewport;
-    if (vp) {
-      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-    }
-  };
 
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", handleViewportResize);
-  }
-
-  return () => {
-    if (window.visualViewport) {
-      window.visualViewport.removeEventListener("resize", handleViewportResize);
-    }
-  };
-}, []);
 
 
   
@@ -356,7 +338,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    paddingBottom: `${inputBottom}px`,
+    bottom:"0",
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
