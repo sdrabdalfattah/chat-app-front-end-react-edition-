@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 import { useState, useEffect  } from "react";
 
+
 function App() {
 const darkTheme = createTheme({
   palette: {
@@ -13,24 +14,28 @@ const darkTheme = createTheme({
   },
 });
 
-const [inputBottom, setInputBottom] = useState(0);
+
+const [keyboardHeight, setKeyboardHeight] = useState(0);
 
 useEffect(() => {
-  const handleViewportResize = () => {
+  const handleResize = () => {
     const vp = window.visualViewport;
-    if (vp) {
-      const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
-      setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
-    }
+    if (!vp) return;
+
+    const heightDiff = window.innerHeight - vp.height - vp.offsetTop;
+    setKeyboardHeight(heightDiff > 150 ? heightDiff : 0); // عتبة 150px لتفادي تغيّرات غير مهمة
   };
 
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", handleViewportResize);
+  const vp = window.visualViewport;
+  if (vp) {
+    vp.addEventListener("resize", handleResize);
+    vp.addEventListener("scroll", handleResize); // مهم جدًا لبعض الأجهزة
   }
 
   return () => {
-    if (window.visualViewport) {
-      window.visualViewport.removeEventListener("resize", handleViewportResize);
+    if (vp) {
+      vp.removeEventListener("resize", handleResize);
+      vp.removeEventListener("scroll", handleResize);
     }
   };
 }, []);
@@ -45,8 +50,7 @@ useEffect(() => {
         style={{
           margin: 0,
           width: '100%',
-          padding:0,
-          transform: `translateY(-${inputBottom}px)`,
+          paddingBottom: `${keyboardHeight}px`,
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
@@ -62,3 +66,4 @@ useEffect(() => {
 }
 
 export default App
+
