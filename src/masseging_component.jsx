@@ -353,8 +353,8 @@ return (
     position: {
       xl: "sticky",
       md: "sticky",
-      sm: "sticky",
-      xs: "sticky",
+      sm: "fixed",
+      xs: "fixed",
     },
     paddingBottom: `${inputBottom}px`,
     transition: "bottom 0s",
