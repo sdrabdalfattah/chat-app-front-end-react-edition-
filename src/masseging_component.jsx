@@ -85,7 +85,6 @@ useEffect(() => {
   const handleViewportResize = () => {
     const vp = window.visualViewport;
     if (vp) {
-         console.log("is scrollin")
       const keyboardHeight = window.innerHeight - vp.height - vp.offsetTop;
       setInputBottom(keyboardHeight > 0 ? keyboardHeight : 0);
     }
@@ -101,6 +100,7 @@ useEffect(() => {
     }
   };
 }, []);
+
 
   
   useEffect(() => {
@@ -356,7 +356,10 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: `${inputBottom}px`,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    transform: `translateY(-${inputBottom}px)`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
