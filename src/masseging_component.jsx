@@ -45,7 +45,7 @@ export default function MassegingComponent({typing , setTyping}) {
     const { isWide, setIswide } = useSidebar();
 
 
-    const [inputBottom, setInputBottom] = useState(0);
+
 
   const [messageJSON, setmessageJSON] = useState({
     reciverid:null,
@@ -79,8 +79,6 @@ useEffect(() => {
 
 
   const messagesEndRef = useRef(null);
-
-
 
 
 
@@ -338,7 +336,7 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom:"0",
+    bottom: `0px`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
