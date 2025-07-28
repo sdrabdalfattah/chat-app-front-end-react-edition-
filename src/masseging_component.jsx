@@ -353,13 +353,10 @@ return (
     position: {
       xl: "sticky",
       md: "sticky",
-      sm: "fixed",
-      xs: "fixed",
+      sm: "sticky",
+      xs: "sticky",
     },
-    bottom: 0,
-    left: 0,
-    right: 0,
-    transform: `translateY(-${inputBottom}px)`,
+    paddingBottom: `${inputBottom}px`,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
