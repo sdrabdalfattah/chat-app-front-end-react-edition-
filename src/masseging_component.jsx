@@ -334,7 +334,6 @@ return (
         role="presentation"
         aria-hidden="true"
   sx={{
-        height:"400px",
     bgcolor: "background.paper",
     position: {
       xl: "sticky",
@@ -342,9 +341,6 @@ return (
       sm: "fixed",
       xs: "fixed",
     },
-    bottom: 0,
-    left: 0,
-    right: 0,
     transition: "bottom 0s",
     scrollBehavior: "auto",
 
@@ -358,9 +354,11 @@ return (
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    alignSelf:"center",
     marginTop: "auto",
   }}
 >
+
 
 
 
