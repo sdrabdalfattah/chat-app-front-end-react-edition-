@@ -333,7 +333,7 @@ return (
 
 
       <Box 
-      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ?  selectedUser.name + " is typing ..." : ""}</Box>
+      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ? `${selectedUser.name} is typing ...` : ""}</Box>
     </Box>
 
 
