@@ -17,7 +17,7 @@ export default function ImgReview({setopenIMG,openIMG,img}) {
       >
         <img
           style={{ borderRadius: "10px", maxWidth: "80%",maxHeight:"80vh",outline:"none" ,border:"none"}}
-          src={`https://chat-app-backend-z319.onrender.com${img}`}
+          src={`https://chat-app-backend-1-tni2.onrender.com${img}`}
           alt="preview"
         />
       </Modal>
