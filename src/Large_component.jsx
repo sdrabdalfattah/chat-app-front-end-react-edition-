@@ -21,7 +21,7 @@ export default function LargeComponent() {
 
   const [serverawake, setServerawake] = useState(false);
 useEffect(() => {
-    axios.delete('https://chat-app-backend-z319.onrender.com/delete_chat')
+    axios.delete('https://chat-app-backend-1-tni2.onrender.com/delete_chat')
       .finally(() => {
         setServerawake(true);
       });
