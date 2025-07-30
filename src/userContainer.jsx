@@ -85,7 +85,7 @@ userinfo?.id && socket.emit("user_connected", { userId: userinfo.id });
 const handelgetusers = () => {
   SetrefreshUsers(true)
 
-    axios.get('https://chat-app-backend-z319.onrender.com/all_users')
+    axios.get('https://chat-app-backend-1-tni2.onrender.com/all_users')
       .then((response) => {
 
         SetrefreshUsers(false)
@@ -107,7 +107,7 @@ useEffect(() => {
     if (!user) return;
 
     try {
-      const res = await axios.get(`https://chat-app-backend-z319.onrender.com/unread-badge/${user.id}`);
+      const res = await axios.get(`https://chat-app-backend-1-tni2.onrender.com/unread-badge/${user.id}`);
 
 
            setUnreadBadgeMap(res.data);
