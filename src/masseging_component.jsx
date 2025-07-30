@@ -162,7 +162,7 @@ const handleImageUpload = async (e) => {
   formData.append("image", file);
  setIsLoading(true);
   try {
-    const res = await axios.post("https://chat-app-backend-z319.onrender.com/upload", formData, {
+    const res = await axios.post("https://chat-app-backend-1-tni2.onrender.com/upload", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
 
@@ -226,7 +226,7 @@ return (
     <Box
   component="img"
   onClick={() => handelImgReview(msg.image)}
-  src={`https://chat-app-backend-z319.onrender.com${msg.image}`}
+  src={`https://chat-app-backend-1-tni2.onrender.com${msg.image}`}
   alt="sent"
   sx={{
     cursor: "pointer",
