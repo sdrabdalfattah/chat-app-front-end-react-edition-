@@ -398,7 +398,7 @@ return (
     disableFocusListener
       disableHoverListener
       disableTouchListener
-  title="This image must be smaller than 1024px"
+  title="This image must be smaller than 2100px"
   componentsProps={{
     tooltip: {
       sx: {
