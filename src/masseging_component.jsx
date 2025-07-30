@@ -226,7 +226,7 @@ return (
     <Box
   component="img"
   onClick={() => handelImgReview(msg.image)}
-  src={`https://chat-app-backend-1-tni2.onrender.com${msg.image}`}
+  src={msg.image}
   alt="sent"
   sx={{
     cursor: "pointer",
