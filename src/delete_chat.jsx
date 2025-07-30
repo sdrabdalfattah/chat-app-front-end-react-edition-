@@ -24,7 +24,7 @@ const handleDelete = async () => {
   if (!userId || !receiverId) return;
 
   try {
-    await axios.delete(`https://chat-app-backend-z319.onrender.com/delete_chat/${userId}/${receiverId}`);
+    await axios.delete(`https://chat-app-backend-1-tni2.onrender.com/delete_chat/${userId}/${receiverId}`);
 
 
 
