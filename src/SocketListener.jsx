@@ -21,16 +21,14 @@ const { addUnread } = useUnread();
 
     const handleReceiveMessage = (saved) => {
       console.log("📥 receive message", saved);
-      addMessage(saved); 
       setTyping(false)
 
-      console.log("77",selectedUser)
-if (!selectedUser || String(selectedUser._id).trim() !== String(saved.sender_id).trim()
-)
- {
-
-        addUnread(saved.sender_id);
-      }
+    if (selectedUser && String(saved.sender_id).trim() === String(selectedUser._id).trim()) {
+      addMessage(saved); 
+    } else {
+      // الرسالة من مستخدم آخر → فقط ضفها كغير مقروءة
+      addUnread(saved.sender_id);
+    }
 
 
     };
