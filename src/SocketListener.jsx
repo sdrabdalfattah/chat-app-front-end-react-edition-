@@ -23,12 +23,19 @@ const { addUnread } = useUnread();
       console.log("📥 receive message", saved);
       setTyping(false)
 
-    if (selectedUser && String(saved.sender_id).trim() === String(selectedUser._id).trim()) {
+   if (
+      selectedUser &&
+      (
+        String(saved.sender_id).trim() === String(selectedUser._id).trim() ||
+        String(saved.receiver_id).trim() === String(selectedUser._id).trim()
+      )
+    ) {
       addMessage(saved); 
+      setTyping(false)
     } else {
-      // الرسالة من مستخدم آخر → فقط ضفها كغير مقروءة
       addUnread(saved.sender_id);
     }
+  
 
 
     };
@@ -44,3 +51,5 @@ const { addUnread } = useUnread();
 };
 
 export default SocketListener;
+
+
