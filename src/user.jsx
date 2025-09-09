@@ -28,10 +28,9 @@ const { clearUnread , unreadCounts} = useUnread();
 
   const handelgetuser = (user) => {
 
-console.log("11",user)
 
     setSelectedUser(user)
-axios.get(`https://chat-app-backend-1-tni2.onrender.com/messages/${userinfo.id}/${user._id}`).then((Response)=> {
+axios.get(`https://chat-app-backend-z319.onrender.com/messages/${userinfo.id}/${user._id}`).then((Response)=> {
 
  setMessages(Response.data.messages);
   
@@ -81,7 +80,12 @@ console.log(userinfo.id, "---",user._id)
             marginInline: "5px 10px"
           }}></Box>
           <Typography variant="h6">{user.name}</Typography>
-            <Badge   badgeContent={unreadCounts[user._id]} sx={{ marginLeft: "auto", marginRight: "20px" }} color="error" />
+            <Badge 
+  badgeContent={unreadCounts[user._id] ?? user.count ?? 0} 
+  sx={{ marginLeft: "auto", marginRight: "20px" }} 
+  color="error" 
+/>
+
         </Box>
       ))}
     </>
