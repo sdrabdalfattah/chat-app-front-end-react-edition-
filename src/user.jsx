@@ -17,7 +17,7 @@ export default function UserContainer({ users , onlineUsers }) {
 
   const isSmallScreen = useMediaQuery('(max-width:900px)');
 
-  
+    console.log(users)
 const { clearUnread , unreadCounts} = useUnread();
 
     const { setIswide } = useSidebar();
@@ -33,6 +33,7 @@ const { clearUnread , unreadCounts} = useUnread();
 axios.get(`https://chat-app-backend-z319.onrender.com/messages/${userinfo.id}/${user._id}`).then((Response)=> {
 
  setMessages(Response.data.messages);
+
   
 if (isSmallScreen) {
   setIswide(true);
@@ -91,3 +92,4 @@ console.log(userinfo.id, "---",user._id)
     </>
   );
 }
+
