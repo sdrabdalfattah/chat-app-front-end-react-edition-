@@ -17,7 +17,7 @@ export default function UserContainer({ users , onlineUsers }) {
 
   const isSmallScreen = useMediaQuery('(max-width:900px)');
 
-    console.log(users)
+  
 const { clearUnread , unreadCounts} = useUnread();
 
     const { setIswide } = useSidebar();
@@ -33,7 +33,6 @@ const { clearUnread , unreadCounts} = useUnread();
 axios.get(`https://chat-app-backend-z319.onrender.com/messages/${userinfo.id}/${user._id}`).then((Response)=> {
 
  setMessages(Response.data.messages);
-
   
 if (isSmallScreen) {
   setIswide(true);
@@ -82,7 +81,7 @@ console.log(userinfo.id, "---",user._id)
           }}></Box>
           <Typography variant="h6">{user.name}</Typography>
             <Badge 
-  badgeContent={unreadCount[user._id] ?? user.count ?? 0} 
+  badgeContent={unreadCounts[user._id] ?? user.unreadCount ?? 0} 
   sx={{ marginLeft: "auto", marginRight: "20px" }} 
   color="error" 
 />
@@ -92,5 +91,6 @@ console.log(userinfo.id, "---",user._id)
     </>
   );
 }
+
 
 
