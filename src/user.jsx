@@ -82,7 +82,7 @@ console.log(userinfo.id, "---",user._id)
           }}></Box>
           <Typography variant="h6">{user.name}</Typography>
             <Badge 
-  badgeContent={unreadCounts[user._id] ?? user.count ?? 0} 
+  badgeContent={unreadCount[user._id] ?? user.count ?? 0} 
   sx={{ marginLeft: "auto", marginRight: "20px" }} 
   color="error" 
 />
@@ -92,4 +92,5 @@ console.log(userinfo.id, "---",user._id)
     </>
   );
 }
+
 
