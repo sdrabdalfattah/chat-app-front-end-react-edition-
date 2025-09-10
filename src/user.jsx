@@ -30,7 +30,7 @@ const { clearUnread , unreadCounts} = useUnread();
 
 
     setSelectedUser(user)
-axios.get(`https://chat-app-backend-z319.onrender.com/messages/${userinfo.id}/${user._id}`).then((Response)=> {
+axios.get(`https://chat-app-backend-1-tni2.onrender.com//messages/${userinfo.id}/${user._id}`).then((Response)=> {
 
  setMessages(Response.data.messages);
   
@@ -91,6 +91,7 @@ console.log(userinfo.id, "---",user._id)
     </>
   );
 }
+
 
 
 
