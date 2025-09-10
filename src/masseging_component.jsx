@@ -36,7 +36,6 @@ export default function MassegingComponent({typing , setTyping}) {
     const userinfo = JSON.parse(localStorage.getItem("user"));
     const id = userinfo.id
 
-    const [showTooltip, setShowTooltip] = useState(false);
     const [openIMG, setopenIMG] = useState(false); 
     const [img , setImg] = useState(null)
     const { selectedUser } = useSelectedUser()
@@ -181,8 +180,6 @@ const handleImageUpload = async (e) => {
 
   } catch (err) {
 
-    setShowTooltip(true)
-     setTimeout(() => setShowTooltip(false), 3000);
     setIsLoading(true)
 
    }finally {
@@ -390,65 +387,46 @@ return (
         }}
               hiddenLabel
             />
-      
+<input
+  accept="image/*"
+  id="upload-button"
+  type="file"
+  style={{ display: "none" }}
+  onChange={handleImageUpload}
+/>
 
-<Tooltip
-  open={showTooltip}
-  arrow
-    disableFocusListener
-      disableHoverListener
-      disableTouchListener
-  title="This image must be smaller than 2100px"
-  componentsProps={{
-    tooltip: {
-      sx: {
-        zIndex:"30" ,
-        border: '1px solid red',
-        backgroundColor: 'rgba(34, 34, 34, 0.68)',
-        color: 'white',
-        fontSize: {  xl: "15px",md: "15px",sm: "11px",xs: "11px", },
-        marginTop: '0px',
-      },
-    },
-  }}
->
-<label htmlFor="image-upload">
-  <input
-    id="image-upload"
-    type="file"
-    accept="image/*"
-    onChange={handleImageUpload}
-    style={{ display: "none" }}
-  />
-<Button
-  size="small"
-  aria-label="add"
-  sx={{
-    zIndex: 1,
-    color:
-      theme.palette.mode === "dark"
-        ? "rgba(41, 41, 41, 1)"
-        : "rgba(255, 255, 255, 1)",
-    bgcolor:
-      theme.palette.mode === "dark"
-        ? "rgba(255, 255, 255, 1)"
-        : "rgba(41, 41, 41, 1)",
-    flexShrink: 0,
-    marginInline: "10px",
-    width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
-    height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
-    "&:hover": {
+<label htmlFor="upload-button">
+  <Button
+    component="span"
+    size="small"
+    aria-label="add"
+    disabled={isLoading}
+    sx={{
+      zIndex: 1,
+      color:
+        theme.palette.mode === "dark"
+          ? "rgba(41, 41, 41, 1)"
+          : "rgba(255, 255, 255, 1)",
       bgcolor:
         theme.palette.mode === "dark"
           ? "rgba(255, 255, 255, 1)"
           : "rgba(41, 41, 41, 1)",
-    },
-  }}
-  component="span"
-  disabled={isLoading}
->
-  <ImageIcon />
-</Button>
+      flexShrink: 0,
+      marginInline: "10px",
+      width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+      height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+      "&:hover": {
+        bgcolor:
+          theme.palette.mode === "dark"
+            ? "rgba(255, 255, 255, 1)"
+            : "rgba(41, 41, 41, 1)",
+      },
+    }}
+  >
+    <ImageIcon />
+  </Button>
+</label>
+
 
 <Button
   onClick={handelsend}
@@ -468,6 +446,7 @@ return (
 </Button>
 
 
+
         </Box>
        
 </Box>
@@ -477,5 +456,4 @@ return (
     </>
   );
 }
-
 
