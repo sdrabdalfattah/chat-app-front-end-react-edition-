@@ -420,43 +420,53 @@ return (
     onChange={handleImageUpload}
     style={{ display: "none" }}
   />
-  <Fab
-    size="small"
-    aria-label="add"
-    sx={{
-      zIndex:"1" ,
-         color:
-   theme.palette.mode === "dark"
-              ?  "rgba(41, 41, 41, 1)"
-              : "rgba(255, 255, 255, 1)",  
-                 bgcolor:
-   theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 1)"
-              : "rgba(41, 41, 41, 1)",  
-      flexShrink: '0',
-      marginInline: "10px",
-      width: {  xl: "50px",md: "50px",sm: "45px",xs: "45px", },
-      height: {  xl: "50px",md: "50px",sm: "45px",xs: "45px", },
-  "&:hover": {
+<Button
+  size="small"
+  aria-label="add"
+  sx={{
+    zIndex: 1,
+    color:
+      theme.palette.mode === "dark"
+        ? "rgba(41, 41, 41, 1)"
+        : "rgba(255, 255, 255, 1)",
+    bgcolor:
+      theme.palette.mode === "dark"
+        ? "rgba(255, 255, 255, 1)"
+        : "rgba(41, 41, 41, 1)",
+    flexShrink: 0,
+    marginInline: "10px",
+    width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+    height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+    "&:hover": {
       bgcolor:
-   theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 1)"
-              : "rgba(41, 41, 41, 1)",        
-  }
-  
-    }}
-    component="span"
-    loading={isLoading}
-  >
-
+        theme.palette.mode === "dark"
+          ? "rgba(255, 255, 255, 1)"
+          : "rgba(41, 41, 41, 1)",
+    },
+  }}
+  component="span"
+  disabled={isLoading}
+>
   <ImageIcon />
-  </Fab>
-</label>
-</Tooltip>
+</Button>
 
-          <Fab onClick={handelsend}  disabled={messageJSON.message.trim() === ""}  size="small" color="primary" aria-label="add" sx={{flexShrink:'0',zIndex:"1" ,marginleft:"10px",width:{  xl: "50px",md: "50px",sm: "45px",xs: "45px", },height:{  xl: "50px",md: "50px",sm: "45px",xs: "45px", }}}>
-        <SendIcon />
-      </Fab>
+<Button
+  onClick={handelsend}
+  disabled={messageJSON.message.trim() === ""}
+  size="small"
+  color="primary"
+  aria-label="send"
+  sx={{
+    flexShrink: 0,
+    zIndex: 1,
+    marginLeft: "10px",
+    width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+    height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+  }}
+>
+  <SendIcon />
+</Button>
+
 
         </Box>
        
@@ -467,4 +477,5 @@ return (
     </>
   );
 }
+
 
