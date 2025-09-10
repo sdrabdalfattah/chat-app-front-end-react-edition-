@@ -101,25 +101,6 @@ const handelgetusers = () => {
 useEffect(() => {handelgetusers()}, [])
 
 
-useEffect(() => {
-  const fetchUnread = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) return;
-
-    try {
-      const res = await axios.get(`https://chat-app-backend-1-tni2.onrender.com/unread-badge/${user.id}`);
-
-
-           setUnreadBadgeMap(res.data);
-
-
-    } catch (err) {
-      console.error("Error fetching unread counts", err);
-    }
-  };
-
-  fetchUnread();
-}, [users]);
 
 
 
@@ -257,3 +238,4 @@ return (
 
 
 }
+
