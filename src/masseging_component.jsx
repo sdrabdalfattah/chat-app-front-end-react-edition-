@@ -399,42 +399,31 @@ return (
   <Button
     component="span"
     size="small"
+    variant="outlined"
     aria-label="add"
     disabled={isLoading}
     sx={{
-      zIndex: 1,
-      color:
-        theme.palette.mode === "dark"
-          ? "rgba(41, 41, 41, 1)"
-          : "rgba(255, 255, 255, 1)",
-      bgcolor:
-        theme.palette.mode === "dark"
-          ? "rgba(255, 255, 255, 1)"
-          : "rgba(41, 41, 41, 1)",
+      borderRadius: "50px",
       flexShrink: 0,
-      marginInline: "10px",
+      zIndex: 1,
+      marginLeft: "10px",
       width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
       height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
-      "&:hover": {
-        bgcolor:
-          theme.palette.mode === "dark"
-            ? "rgba(255, 255, 255, 1)"
-            : "rgba(41, 41, 41, 1)",
-      },
     }}
   >
     <ImageIcon />
   </Button>
 </label>
 
-
 <Button
   onClick={handelsend}
   disabled={messageJSON.message.trim() === ""}
   size="small"
   color="primary"
+  variant="contained"
   aria-label="send"
   sx={{
+    borderRadius: "50px",
     flexShrink: 0,
     zIndex: 1,
     marginLeft: "10px",
@@ -456,4 +445,5 @@ return (
     </>
   );
 }
+
 
