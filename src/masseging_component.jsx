@@ -446,13 +446,10 @@ return (
   
     }}
     component="span"
+    loading={isLoading}
   >
-  {isLoading ? (
-  <CircularProgress size={25} sx={{  color:"background.paper", }} />
-) : (
-  <ImageIcon />
-)}
 
+  <ImageIcon />
   </Fab>
 </label>
 </Tooltip>
@@ -470,3 +467,4 @@ return (
     </>
   );
 }
+
