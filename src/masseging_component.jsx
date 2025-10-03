@@ -83,22 +83,13 @@ useEffect(() => {
 
 useEffect(() => {
   const container = messagesEndRef.current;
-  if (!container) return;
-  const threshold = 2000; 
-  const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
 
-  if (isNearBottom) {
     container.scrollTop = container.scrollHeight;
-  }
+  
 }, [messages,typing]);
 
 
   
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-    }
-  }, [messages ]);
 
 
 
@@ -445,5 +436,6 @@ return (
     </>
   );
 }
+
 
 
