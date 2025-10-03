@@ -83,7 +83,7 @@ useEffect(() => {
 
 useEffect(() => {
   const container = messagesEndRef.current;
-
+  console.log("fsdf")
     container.scrollTop = container.scrollHeight;
   
 }, [messages,typing]);
@@ -436,6 +436,7 @@ return (
     </>
   );
 }
+
 
 
 
