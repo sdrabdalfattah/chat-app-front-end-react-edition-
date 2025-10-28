@@ -4,7 +4,7 @@ import LargeComponent from './Large_component.jsx'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
-import { useState, useEffect  } from "react";
+import { useState, useEffect, useMemo  } from "react";
 
 
 function App() {
