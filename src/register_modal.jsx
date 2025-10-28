@@ -73,7 +73,7 @@ const  handelislogged = ()=> {
         sx={{
           color:"text.primary",
           marginInline:"5px",
-          bgcolor:"background.paper",
+          background: theme.palette.background.paper,
           borderRadius:'8px',
           padding: '20px',
           flexDirection: 'column',
@@ -115,3 +115,4 @@ click here
     </>
   )
 }
+
