@@ -393,7 +393,7 @@ return (
       flexShrink: 0,
       zIndex: 1,
       marginLeft: "10px",
-      width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+      minWidth: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
       height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
     }}
   >
@@ -413,7 +413,7 @@ return (
     flexShrink: 0,
     zIndex: 1,
     marginLeft: "10px",
-    width: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
+    minWidth: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
     height: { xl: "50px", md: "50px", sm: "45px", xs: "45px" },
   }}
 >
@@ -431,6 +431,7 @@ return (
     </>
   );
 }
+
 
 
 
