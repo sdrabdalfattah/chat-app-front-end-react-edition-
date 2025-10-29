@@ -281,7 +281,7 @@ return (
   flexGrow: 1,
   scrollBehavior: "smooth",
   display: "flex",
-  maxHeight: {  xl: "85vh",md: "85vh",sm: "none",xs: "none", },
+  maxHeight: {  xl: "85vh",md: "85vh",sm: "auto",xs: "auto", },
  overflowY: {  xl: "auto",md: "auto",sm: "visible",xs: "visible", },
   bgcolor: "background.default",
   flexDirection: "column",
