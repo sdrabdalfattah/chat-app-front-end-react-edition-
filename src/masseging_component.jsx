@@ -256,7 +256,7 @@ return (
 return (
     <>
 <Box sx={{width: {md:isWide ? "100%" :"70%",xl:isWide ? "100%" :"70%", sm: "100%",xs: "100%",  } ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
-      <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+      <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "sticky",xs: "sticky", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
 <Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<>  <Avatar src={selectedUser.image} sx={{ width: 46, height: 46,marginRight:"10px" }} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
             <IconButton onClick={()=> {setOpen(true)}} aria-label="delete" sx={{marginLeft:"auto"}}>
@@ -431,6 +431,7 @@ return (
     </>
   );
 }
+
 
 
 
