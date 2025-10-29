@@ -12,21 +12,26 @@ const SocketListener = ({ setTyping }) => {
   const { addMessage } = useMessages();
   const audioRef = useRef(new Audio(notSound));
 
+  // 🔹 هذا هو المعرف الحالي للمستخدم الذي يستخدم التطبيق
+  const currentUserId = localStorage.getItem("userId"); // أو استخدم السياق إن وجد
+
   useEffect(() => {
     const handleReceiveMessage = (saved) => {
-      // تشغيل الصوت
-      try {
-        audioRef.current.currentTime = 0; // إعادة الصوت للبداية
-        audioRef.current.play().catch(() => {}); // تجنب الخطأ في المتصفحات التي تتطلب تفاعل المستخدم
-      } catch (err) {
-        console.warn("Failed to play sound:", err);
-      }
-
-      setTyping(false);
-
       const senderId = String(saved.sender_id).trim();
       const receiverId = String(saved.receiver_id).trim();
       const selectedId = selectedUser ? String(selectedUser._id).trim() : null;
+
+      // ✅ لا تشغل الصوت إذا كانت الرسالة من المستخدم الحالي
+      if (senderId !== currentUserId) {
+        try {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().catch(() => {});
+        } catch (err) {
+          console.warn("Failed to play sound:", err);
+        }
+      }
+
+      setTyping(false);
 
       if (selectedId && (senderId === selectedId || receiverId === selectedId)) {
         addMessage(saved);
@@ -40,7 +45,7 @@ const SocketListener = ({ setTyping }) => {
     return () => {
       socket.off("receive_message", handleReceiveMessage);
     };
-  }, [addMessage, addUnread, selectedUser, setTyping]);
+  }, [addMessage, addUnread, selectedUser, setTyping, currentUserId]);
 
   return null;
 };
