@@ -7,7 +7,6 @@ export const UnreadProvider = ({ children }) => {
   const [unreadCounts, setUnreadCounts] = useState({});
 
   const addUnread = (userId) => {
-     console.log("🔴 addUnread called for user:", userId)
     setUnreadCounts((prev) => ({
       ...prev,
       [userId]: (prev[userId] || 0) + 1,

@@ -10,103 +10,108 @@ import { useState, useEffect, useMemo  } from "react";
 function App() {
 const getCustomTheme = (mode) =>
   createTheme({
-palette: {
-  mode,
-  ...(mode === 'dark'
-    ? {
-        background: {
-          default: '#0d0b1a', // خلفية داكنة جدًا بنفسجية مائلة للأسود
-          paper: '#1a1625',   // خلفية الكروت/العناصر بدرجة أفتح قليلاً
-        },
-        text: {
-          primary: '#e9d5ff',   // نص بنفسجي فاتح مريح للعين
-          secondary: '#c4b5fd', // نص ثانوي أفتح بدرجة lavender
-        },
-        primary: {
-          main: '#8b5cf6', // بنفسجي متوسط (هادئ وفخم)
-          contrastText: '#ffffff',
-        },
-        secondary: {
-          main: '#6d28d9', // بنفسجي داكن أكثر قوة
-          contrastText: '#ffffff',
-        },
-      }
-    : {
-        background: {
-          default: '#ffffff', // خلفية فاتحة
-          paper: '#f5f3ff',   // بنفسجي باهت للكروت
-        },
-        text: {
-          primary: '#2e1065', // بنفسجي داكن للنصوص
-          secondary: '#6b21a8',
-        },
-        primary: {
-          main: '#9333ea', // بنفسجي قوي
-          contrastText: '#ffffff',
-        },
-        secondary: {
-          main: '#c084fc', // بنفسجي فاتح
-          contrastText: '#ffffff',
-        },
-      }),
-}
-,
+  palette: {
+    mode,
+    ...(mode === 'dark'
+      ? {
+          background: {
+            default: '#0a0f0d', // أسود مخضر داكن جدًا
+            paper: '#121814', // رمادي غامق بخلفية خضراء خفيفة
+          },
+          text: {
+            primary: '#d1fae5', // أخضر فاتح ناعم (نعناعي)
+            secondary: '#9ca3af', // رمادي فاتح للنصوص الثانوية
+          },
+          primary: {
+            main: '#1f7e5bff', // أخضر زمردي متناسق
+            contrastText: '#ffffff',
+          },
+          secondary: {
+            main: '#4b5563', // رمادي داكن
+            contrastText: '#ffffff',
+          },
+          divider: '#1f2937', // فاصل رمادي غامق
+        }
+      : {
+          background: {
+            default: '#f9fafb', // رمادي فاتح جدًا
+            paper: '#ecfdf5', // أخضر باهت للكروت والعناصر
+          },
+          text: {
+            primary: '#111827', // أسود رمادي للنصوص الرئيسية
+            secondary: '#374151', // رمادي متوسط للنصوص الثانوية
+          },
+          primary: {
+            main: '#098058ff', // أخضر نابض بالحياة
+            contrastText: '#ffffff',
+          },
+          secondary: {
+            main: '#6b7280', // رمادي أنيق
+            contrastText: '#ffffff',
+          },
+          divider: '#d1d5db', // فاصل رمادي فاتح
+        }),
+  },
 
-    shape: {
-      borderRadius: 16, 
-    },
-    components: {
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            borderRadius: 16,
-          },
-        },
-      },
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 50,
-          },
-        },
-      },
-      MuiCard: {
-        styleOverrides: {
-          root: {
-            borderRadius: 18,
-          },
-        },
-      },
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            borderRadius: 50,
-          },
-        },
-      },
-      MuiDialog: {
-        styleOverrides: {
-          paper: {
-            borderRadius: 18,
-          },
-        },
-      },
-      MuiToggleButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 50,
-          },
-        },
-      },
-      MuiMenu: {
-        styleOverrides: {
-          paper: {
-            borderRadius: 14,
-          },
+  shape: {
+    borderRadius: 16,
+  },
+
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          backgroundImage: 'none', // لإزالة الظلال الافتراضية
         },
       },
     },
-  });
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 50,
+          textTransform: 'none',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 18,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: 50,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 18,
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 50,
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 14,
+        },
+      },
+    },
+  },
+});
 
 
 const [mode, setMode] = useState(() => {

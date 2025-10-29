@@ -21,6 +21,7 @@ import { useEffect,useState } from 'react';
 import { socket } from "./socket";
 import IconButton from '@mui/material/IconButton';
 import LinearProgress from '@mui/material/LinearProgress';
+import { Avatar } from '@mui/material';
 
 export default function UsersContainer() {
 
@@ -28,6 +29,7 @@ export default function UsersContainer() {
     const { isWide, setIswide } = useSidebar();
 const userinfo = JSON.parse(localStorage.getItem("user")) || null;
 const username = userinfo?.username
+const image = userinfo?.image
 
 const [unreadBadgeMap, setUnreadBadgeMap] = useState({});
 
@@ -89,6 +91,7 @@ const handelgetusers = () => {
       .then((response) => {
 
         SetrefreshUsers(false)
+        console.log(response.data.users);
         setUsers(response.data.users);
         setCount(response.data.count);
       })
@@ -215,7 +218,7 @@ return (
             paddingInline: "5px",
           }}
         >
-          <PersonIcon sx={{ marginRight: "5px", color: "text.primary" }} />
+          <Avatar src={image} sx={{ width: 46, height: 46,marginRight:"10px" }} />
           {username}
         </Typography>
 

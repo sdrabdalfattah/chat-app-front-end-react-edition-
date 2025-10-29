@@ -14,7 +14,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import './App.css'
 
-import { useTheme } from '@mui/material/styles';
+import { Avatar } from '@mui/material';
 import DelelteDialog from "./delete_chat.jsx"
 import Tooltip from '@mui/material/Tooltip';
 import ImgReview from './imgReview';
@@ -26,12 +26,12 @@ import CreateIcon from '@mui/icons-material/Create';
 import { useSelectedUser } from "./contexts/SelectedUserContext";
 import { useMessages } from './contexts/MessagesContext';
 import ImageIcon from '@mui/icons-material/Image';
-import { useState, useEffect,useRef,useMemo  } from "react";
+import { useState, useEffect,useMemo  } from "react";
 import { socket } from "./socket";
+
 
 export default function MassegingComponent({typing , setTyping}) {
 
-  const theme = useTheme();
 
     const userinfo = JSON.parse(localStorage.getItem("user"));
     const id = userinfo.id
@@ -77,16 +77,9 @@ useEffect(() => {
 
 
 
-  const messagesEndRef = useRef(null);
 
 
 
-useEffect(() => {
-  const container = messagesEndRef.current;
-  console.log("fsdf")
-    container.scrollTop = container.scrollHeight;
-  
-}, [messages,typing]);
 
 
   
@@ -181,16 +174,14 @@ const handleImageUpload = async (e) => {
 
 
 
+
+
+
+
 const renderedMessages = useMemo(() => {
   return messages.map((msg, index) => {
     const date = new Date(msg.createdAt);
-    const dateTime = date.toLocaleString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+const dateTime = date.toLocaleDateString('en-CA').replace(/-/g, '/');
 
     const isMine = msg.sender_id === userinfo.id;
 
@@ -233,21 +224,17 @@ return (
 
     {msg.message_body && (
       <Typography
- sx={(theme) => ({
+ sx={{
   width: "fit-content",
   wordBreak: "break-word",
-  bgcolor: isMine
-    ? theme.palette.mode === "dark"
-      ? "rgb(144, 202, 249)"
-      : "rgb(25, 118, 210)"
-    : "transparent",
-  border: isMine ? "none" : "1px solid #505050ff",
- color: isMine ?"background.paper" : "text.primary",
+  bgcolor: isMine ? "primary.main" : "background.paper",
+ color: isMine ?"text.primary" : "text.primary",
   padding: "10px",
   marginLeft: isMine ? "auto" : "0",
-  borderRadius: "20px",
+  textAlign: "left",
+  borderRadius: "25px",
   maxWidth: "500px",
-})}
+}}
 
       >
         {msg.message_body}
@@ -271,7 +258,7 @@ return (
 <Box sx={{width: {md:isWide ? "100%" :"70%",xl:isWide ? "100%" :"70%", sm: "100%",xs: "100%",  } ,height:"100vh",transition:"0.4s",display:"flex",flexDirection:"column",bgcolor: "background.default",}}>
       <Box sx={{bgcolor: "background.paper",position:{  xl: "sticky",md: "sticky",sm: "fixed",xs: "fixed", },top:"0",width:"100%",padding:"10px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {isWide ? <IconButton onClick={()=> {setIswide(false)}} sx={{marginRight:"10px",}}> <ExpandCircleDownIcon sx={{fontSize:"25px",cursor:"pointer",transform:"rotate(-90deg)"}}/> </IconButton> : ""}
-<Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<><PersonIcon sx={{marginRight:"7px"}} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
+<Typography sx={{display:"flex",alignItems:"center",color: "text.primary",justifyContent:"center"}}>  {selectedUser ? (<>  <Avatar src={selectedUser.image} sx={{ width: 46, height: 46,marginRight:"10px" }} /> {selectedUser.name}</>) : "Select user to chat with"}</Typography>
             <IconButton onClick={()=> {setOpen(true)}} aria-label="delete" sx={{marginLeft:"auto"}}>
         <DeleteIcon />
       </IconButton>
@@ -279,16 +266,19 @@ return (
 
 
 
- <Box ref={messagesEndRef} sx={{
+ <Box sx={{
   padding: {
     xl: isWide ? "10px 200px" : "10px 30px",
     md: isWide ? "10px 200px" : "10px 30px",
     sm: "90px 30px",
     xs: "90px 30px", 
   },
-
+  position: "relative",
   paddingBlock:"50px",
   transition: "0.4s",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  flexGrow: 1,
   scrollBehavior: "smooth",
   display: "flex",
   maxHeight: {  xl: "85vh",md: "85vh",sm: "none",xs: "none", },
@@ -321,7 +311,12 @@ return (
 
 
       <Box 
-      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ? `${selectedUser.name} is typing ...` : ""}</Box>
+      sx={{background:"rgba(66, 66, 66, 1)",animation: "blink 2s ease-in-out infinite",padding:"10px 12px",width:"fit-content",borderRadius:"50px",display: typing ? "flex" : "none",alignItems:"center", justifyContent:"center"}}> <CreateIcon sx={{marginRight:"10px"}}/>{selectedUser ? `${selectedUser.name} is typing ...` : ""}
+      </Box>
+
+
+
+
     </Box>
 
 

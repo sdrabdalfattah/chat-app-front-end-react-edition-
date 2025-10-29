@@ -11,6 +11,7 @@ import axios from 'axios';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useSidebar } from './contexts/SidebarContext';
 import { useUnread } from "./contexts/UnreadContext";
+import Avatar from '@mui/material/Avatar';
 
 
 export default function UserContainer({ users , onlineUsers }) {
@@ -68,18 +69,25 @@ console.log(userinfo.id, "---",user._id)
             backgroundColor: 'rgba(80, 80, 80, 0.21)',
           },
         }}>
-          <PersonIcon sx={{ marginRight: "5px" }} />
-          <Box 
-
-            sx={{
-            height: "10px",
-            width: "10px",
-            borderRadius: '50%',
-            flexShrink:"0",
-            backgroundColor:  onlineUsers.includes(user._id) ? "green" : "grey",
-            marginInline: "5px 10px"
-          }}></Box>
-          <Typography variant="h6">{user.name}</Typography>
+<Badge
+  overlap="circular"
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "right",
+  }}
+  variant="dot"
+  sx={{
+    "& .MuiBadge-dot": {
+      backgroundColor: onlineUsers.includes(user._id) ? "rgba(5, 150, 0, 1)" : "rgba(46, 46, 46, 1)", // اللون الأخضر للحالة النشطة
+      width: "12px",
+      height: "12px",
+      borderRadius: "50%",
+    },
+  }}
+>
+  <Avatar src={user.image} sx={{ width: 46, height: 46 }} />
+</Badge>
+          <Typography variant="h6" sx={{marginLeft:"10px"}}>{user.name}</Typography>
             <Badge 
   badgeContent={unreadCounts[user._id] ?? user.unreadCount ?? 0} 
   sx={{ marginLeft: "auto", marginRight: "20px" }} 
