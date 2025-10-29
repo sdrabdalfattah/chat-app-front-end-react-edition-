@@ -1,43 +1,38 @@
 // components/SocketListener.jsx
-import { useEffect } from "react";
-import { useMessages } from './contexts/MessagesContext';
-import { socket } from "./socket";
+import { useEffect, useRef } from "react";
+import { useMessages } from "./contexts/MessagesContext";
 import { useSelectedUser } from "./contexts/SelectedUserContext";
-
 import { useUnread } from "./contexts/UnreadContext";
+import { socket } from "./socket";
+import notSound from "./assets/mixkit-interface-option-select-2573 (1).wav";
 
-
-const SocketListener = ({setTyping}) => {
-
-
-const { addUnread } = useUnread();
- const { selectedUser } = useSelectedUser();
-
-
-
+const SocketListener = ({ setTyping }) => {
+  const { addUnread } = useUnread();
+  const { selectedUser } = useSelectedUser();
   const { addMessage } = useMessages();
+  const audioRef = useRef(new Audio(notSound));
 
   useEffect(() => {
-
     const handleReceiveMessage = (saved) => {
-      console.log("📥 receive message", saved);
-      setTyping(false)
+      // تشغيل الصوت
+      try {
+        audioRef.current.currentTime = 0; // إعادة الصوت للبداية
+        audioRef.current.play().catch(() => {}); // تجنب الخطأ في المتصفحات التي تتطلب تفاعل المستخدم
+      } catch (err) {
+        console.warn("Failed to play sound:", err);
+      }
 
-   if (
-      selectedUser &&
-      (
-        String(saved.sender_id).trim() === String(selectedUser._id).trim() ||
-        String(saved.receiver_id).trim() === String(selectedUser._id).trim()
-      )
-    ) {
-      addMessage(saved); 
-      setTyping(false)
-    } else {
-      addUnread(saved.sender_id);
-    }
-  
+      setTyping(false);
 
+      const senderId = String(saved.sender_id).trim();
+      const receiverId = String(saved.receiver_id).trim();
+      const selectedId = selectedUser ? String(selectedUser._id).trim() : null;
 
+      if (selectedId && (senderId === selectedId || receiverId === selectedId)) {
+        addMessage(saved);
+      } else {
+        addUnread(senderId);
+      }
     };
 
     socket.on("receive_message", handleReceiveMessage);
@@ -45,7 +40,7 @@ const { addUnread } = useUnread();
     return () => {
       socket.off("receive_message", handleReceiveMessage);
     };
-  }, [socket,selectedUser]);
+  }, [addMessage, addUnread, selectedUser, setTyping]);
 
   return null;
 };
